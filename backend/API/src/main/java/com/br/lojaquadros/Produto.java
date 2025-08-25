@@ -64,7 +64,5 @@ public class Produto {
         this.keywords = keywords;
     }
 
-    
-
 
 }
