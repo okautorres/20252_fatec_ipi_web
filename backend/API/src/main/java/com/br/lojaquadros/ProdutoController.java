@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -52,6 +53,16 @@ public class ProdutoController {
     @GetMapping("/produtos")
     public List<Produto> listProdutos(){
         return bd.findAll();
+    }
+
+    @GetMapping("/produtos/vitrine")
+    public List<Produto> listVitrine(){
+        return bd.listVitrine();
+    }
+
+    @GetMapping("/produtos/termo/{termo}")
+    public List<Produto> fazerBusca(@PathVariable String termo){
+        return bd.fazerBusca(termo);
     }
 
 

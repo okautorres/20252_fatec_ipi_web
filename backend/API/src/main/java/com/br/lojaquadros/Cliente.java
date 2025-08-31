@@ -11,6 +11,13 @@ public class Cliente {
     private String name;
     private String email;
     private String password;
+    private int ativo;
+    public int getAtivo() {
+        return ativo;
+    }
+    public void setativo(int ativo) {
+        this.ativo = ativo;
+    }
     @Embedded
     private Endereco endereco;
     private String cel;

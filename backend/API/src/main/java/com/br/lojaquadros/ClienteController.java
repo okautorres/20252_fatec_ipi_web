@@ -1,6 +1,7 @@
 package com.br.lojaquadros;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -54,6 +55,21 @@ public class ClienteController {
         return bd.findAll();
     }
 
+    @PostMapping("/cliente/login")
+    public Cliente login(@RequestBody Cliente obj){
+       Optional<Cliente> re =  bd.login(obj.getEmail(), obj.getPassword());
+       if(re.isPresent()){
+             System.out.println("Login efetuado com sucesso!");
+            return re.get();
+       } else {
+            return new Cliente();
+       }
+    }
+
+    @GetMapping("/cliente/inativos")
+    public List<Cliente> listInativos(){
+        return bd.listInativos();
+    }
 
 
 }
