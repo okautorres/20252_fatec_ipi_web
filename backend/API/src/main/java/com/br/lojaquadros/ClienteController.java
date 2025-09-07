@@ -19,10 +19,26 @@ public class ClienteController {
     @Autowired
     ClienteRepository bd;
 
-    @PostMapping("/cliente")
+    @Autowired LojaService lojaService;
+
+    @PostMapping("/cliente/cadastro")
     public void postCliente (@RequestBody Cliente obj){
+       Optional<Cliente> clienteExistente = bd.findByEmail(obj.getEmail());
+        
+        if (clienteExistente.isPresent()) {
+            System.out.println("Erro: E-mail já cadastrado.");
+        }
+
         bd.save(obj);
-        System.out.println("Cliente salvo.");
+        System.out.println("Cliente salvo com sucesso.");
+
+        String assunto = "Confirmação de Cadastro - " + obj.getName();
+        String corpo = "Olá " + ",\n\n" + "Confirmamos que seu cadastro foi realizado com sucesso em nossa loja. Agora você pode fazer login e aproveitar nossos produtos. " +
+                       "Agradecemos a sua preferência!\n\n" +
+                       "Atenciosamente,\n" +
+                       "Equipe Loja de Quadros.";
+        
+        lojaService.sendEmail(obj.getEmail(), assunto, corpo);
     }
 
     @GetMapping("/cliente/{id}")

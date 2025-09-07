@@ -16,4 +16,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
     @Query(value = "select * from cliente where on=0",nativeQuery=true)
      public List<Cliente> listInativos();
 
+     Optional<Cliente> findByEmail(String email);
+
 }
