@@ -13,9 +13,11 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
     @Query(value = "select * from cliente where email=?1 and password=?2", nativeQuery= true)
     public Optional<Cliente> login(String email, String password);
 
-    @Query(value = "select * from cliente where ativo=0",nativeQuery=true)
+    @Query(value = "select * from cliente where active=0",nativeQuery=true)
      public List<Cliente> listInativos();
 
      Optional<Cliente> findByEmail(String email);
+
+    public Optional<Cliente> findByTokenEmail(String tokenEmail);
 
 }
