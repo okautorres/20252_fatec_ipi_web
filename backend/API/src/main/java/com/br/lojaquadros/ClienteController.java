@@ -39,6 +39,7 @@ public class ClienteController {
                        "Equipe Loja de Quadros.";
         
         lojaService.sendEmail(obj.getEmail(), assunto, corpo);
+        System.out.println("E-mail enviado  com sucesso.");
     }
 
     @GetMapping("/cliente/{id}")
@@ -82,7 +83,7 @@ public class ClienteController {
        }
     }
 
-    @GetMapping("/cliente/inativos")
+    @GetMapping("/clientes/inativos")
     public List<Cliente> listInativos(){
         return bd.listInativos();
     }

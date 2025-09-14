@@ -2,26 +2,32 @@ package com.br.lojaquadros;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Cliente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String email;
     private String password;
-    private int ativo;
-    public int getAtivo() {
-        return ativo;
-    }
-    public void setativo(int ativo) {
-        this.ativo = ativo;
-    }
+    private int active; 
+    private String tokenEmail;
+
     @Embedded
     private Endereco endereco;
     private String cel;
 
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
     
     public int getId() {
         return id;
@@ -60,6 +66,11 @@ public class Cliente {
         this.cel = cel;
     }
 
-    
+    public String getTokenEmail() {
+        return tokenEmail;
+    }
 
+    public void setTokenEmail(String tokenEmail) {
+        this.tokenEmail = tokenEmail;
+    }
 }
