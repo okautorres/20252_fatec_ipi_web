@@ -1,0 +1,53 @@
+/* ARQUIVO: src/app/home/home.component.css */
+
+.home-container {
+  text-align: center;
+}
+
+.home-container h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 30px auto; /* Centraliza o parágrafo */
+}
+
+.featured-section .cta-button {
+  background-color: #c9a35e;
+  color: #fff;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+}
+
+.featured-section .cta-button:hover {
+  background-color: #b38f51;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 50px auto;
+  width: 80%;
+}
+
+.admin-section a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.admin-section a:hover {
+  text-decoration: underline;
+}

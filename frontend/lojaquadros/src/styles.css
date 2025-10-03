@@ -1,0 +1,15 @@
+/* ARQUIVO: src/styles.css */
+
+/* Importando uma fonte elegante do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Estilos Globais */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f4f4; /* Um cinza bem claro para o fundo */
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}

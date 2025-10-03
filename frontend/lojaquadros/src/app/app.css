@@ -1,0 +1,115 @@
+/* ARQUIVO: src/app/app.component.css */
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* --- Cabeçalho --- */
+.store-header {
+  display: flex;
+  align-items: center;
+  padding: 25px 40px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+/* Link que envolve o cabeçalho */
+.header-link {
+    color: white;
+    text-decoration: none;
+    display: flex; /* Para alinhar o conteúdo interno */
+    align-items: center;
+}
+
+.logo {
+  font-size: 40px;
+  font-weight: bold;
+  border: 2px solid #c9a35e;
+  color: #c9a35e;
+  padding: 10px 20px;
+  margin-right: 25px;
+  border-radius: 4px;
+}
+
+.store-title h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.store-title h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ccc;
+}
+
+/* --- Navegação --- */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0 40px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.main-nav ul li a {
+  display: block;
+  padding: 20px 25px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 700;
+  transition: background-color 0.3s, color 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.main-nav ul li a:hover {
+  background-color: #f9f9f9;
+  color: #c9a35e;
+  border-bottom-color: #c9a35e;
+}
+
+.external-link {
+  text-decoration: none;
+  color: #fff;
+  background-color: #c9a35e;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.external-link:hover {
+  background-color: #b38f51;
+}
+
+/* --- Área de Conteúdo Principal --- */
+.content-area {
+  padding: 40px;
+  min-height: 400px;
+}
+
+/* --- Rodapé --- */
+.store-footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  text-align: center;
+  padding: 25px;
+  font-size: 0.9rem;
+}
+
+.store-footer p {
+  margin: 5px 0;
+}
