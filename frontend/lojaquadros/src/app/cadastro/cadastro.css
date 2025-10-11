@@ -1,0 +1,107 @@
+.cadastro-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 40px 50px;
+  text-align: center;
+}
+
+.cadastro-container h2 {
+  color: #1a1a1a;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.descricao {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+.cadastro-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  border-color: #c9a35e;
+  outline: none;
+}
+
+.termos {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.termos label {
+  margin-left: 8px;
+  color: #555;
+}
+
+.termos a {
+  color: #c9a35e;
+  text-decoration: none;
+}
+
+.termos a:hover {
+  text-decoration: underline;
+}
+
+.botao-cadastrar {
+  width: 100%;
+  background-color: #c9a35e;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botao-cadastrar:hover {
+  background-color: #b38f51;
+}
+
+.login-link {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #555;
+  text-align: center;
+}
+
+.login-link a {
+  color: #c9a35e;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

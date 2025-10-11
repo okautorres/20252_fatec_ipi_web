@@ -1,0 +1,41 @@
+<div class="cadastro-container">
+
+  <h2>Crie sua conta</h2>
+  <p class="descricao">Preencha os campos abaixo para se cadastrar na LojaQuadros.</p>
+
+  <form [formGroup]="formCadastro" (ngSubmit)="cadastrarUsuario()" class="cadastro-form">
+
+    <div class="form-group">
+      <label for="nome">Nome completo</label>
+      <input id="nome" type="text" formControlName="nome" placeholder="Digite seu nome completo" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" formControlName="email" placeholder="exemplo@email.com" />
+    </div>
+
+    <div class="form-group">
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" formControlName="senha" placeholder="Digite uma senha segura" />
+    </div>
+
+    <div class="form-group">
+      <label for="confirmarSenha">Confirmar senha</label>
+      <input id="confirmarSenha" type="password" formControlName="confirmarSenha" placeholder="Repita a senha" />
+    </div>
+
+    <div class="form-group termos">
+      <input id="termos" type="checkbox" formControlName="termos" />
+      <label for="termos">Concordo com os termos de uso e a política de privacidade.</label>
+    </div>
+
+    <button type="submit" class="botao-cadastrar" [disabled]="formCadastro.invalid">
+      Cadastrar
+    </button>
+
+    <b>{{ alerta }}</b>
+
+  </form>
+
+</div>
