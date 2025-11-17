@@ -1,18 +1,32 @@
 <div class="home-container">
-  <h2>Bem-vindo à LojaQuadros!</h2>
-  <p>Explore nossas coleções e encontre a arte perfeita para o seu espaço.</p>
-  
+
+  <h2 class="title">Quadros em Destaque</h2>
+  <p class="subtitle">Seleção especial da nossa galeria</p>
+
+  <!-- Seção de produtos -->
   <div class="featured-section">
-    <p>Navegue pelas nossas principais seções:</p>
-    <a href="/colecoes" class="cta-button">Ver Coleções</a>
-    <a href="/artistas" class="cta-button">Conhecer Artistas</a>
+
+    <div class="products-grid">
+
+      <!-- Loop dos produtos -->
+      <div class="product-card" *ngFor="let p of produtos" (click)="verProduto(p.id!)">
+        
+        <img class="product-image" 
+             [alt]="p.name">
+
+        <div class="product-info">
+          <h3 class="product-name">{{ p.name }}</h3>
+          <p class="product-price">R$ {{ p.value | number:'1.2-2' }}</p>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
   <hr class="divider">
 
-  <div class="admin-section">
-      <p>Área administrativa:</p>
-      <a href="/usuarios">Ver Lista de Usuários</a>
-  </div>
+
 
 </div>

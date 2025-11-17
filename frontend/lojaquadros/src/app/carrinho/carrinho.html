@@ -1,0 +1,75 @@
+<div class="cart-container">
+
+  <h2>Meu Carrinho</h2>
+  <p class="descricao">Revise os itens antes de finalizar sua compra.</p>
+
+  <!-- Se carrinho vazio -->
+  <div class="cart-empty" style="display: none;">
+    <p>Seu carrinho está vazio.</p>
+    <a class="continue" href="/">Continuar comprando</a>
+  </div>
+
+  <!-- Quando tem itens -->
+  <div class="cart-main">
+
+    <!-- Lista de itens -->
+    <div class="cart-items">
+
+      <!-- Item (replicar dinamicamente) -->
+      <div class="cart-item">
+        <img src="assets/quadro-exemplo.jpg" alt="Nome do Quadro" class="item-image" />
+
+        <div class="item-details">
+          <h3 class="item-name">Nome do Quadro</h3>
+          <p class="item-artist">Artista • Categoria</p>
+          <p class="item-price">R$ 249,90</p>
+
+          <div class="item-controls">
+            <div class="qty">
+              <button class="qty-btn qty-decrease">−</button>
+              <input class="qty-input" type="number" min="1" value="1" />
+              <button class="qty-btn qty-increase">＋</button>
+            </div>
+            <button class="remover">Remover</button>
+          </div>
+        </div>
+      </div>
+      <!-- fim item -->
+
+      <!-- repetir outros itens... -->
+
+    </div>
+    <!-- fim cart-items -->
+
+    <!-- Resumo / checkout -->
+    <aside class="cart-summary">
+      <div class="summary-box">
+        <h4>Resumo do pedido</h4>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span class="summary-value">R$ 499,80</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Frete (estimado)</span>
+          <span class="summary-value">R$ 25,00</span>
+        </div>
+
+        <div class="summary-row total">
+          <span>Total</span>
+          <span class="summary-value">R$ 524,80</span>
+        </div>
+
+        <button class="btn-checkout">Finalizar compra</button>
+
+        <p class="observacao">
+          Pagamento seguro. Você poderá revisar o pedido na página de pagamento.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+  <!-- fim cart-main -->
+
+</div>

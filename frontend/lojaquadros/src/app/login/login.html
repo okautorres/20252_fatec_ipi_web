@@ -1,0 +1,57 @@
+<div class="login-container">
+<h2>Entrar</h2>
+<p class="descricao">Acesse sua conta na LojaQuadros.</p>
+
+
+<form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+<div class="form-group">
+<label for="email">E-mail</label>
+<input id="email" type="email" placeholder="seu@email.com" formControlName="email" />
+<div class="error" *ngIf="f['email'].touched && f['email'].invalid">
+<small *ngIf="f['email'].errors?.['required']">E-mail é obrigatório.</small>
+<small *ngIf="f['email'].errors?.['email']">E-mail inválido.</small>
+</div>
+</div>
+
+
+<div class="form-group">
+<label for="senha">Senha</label>
+<input id="senha" type="password" placeholder="Digite sua senha" formControlName="password" />
+<div class="error" *ngIf="f['password'].touched && f['password'].invalid">
+<small *ngIf="f['password'].errors?.['required']">Senha é obrigatória.</small>
+<small *ngIf="f['password'].errors?.['minlength']">Senha muito curta.</small>
+</div>
+</div>
+
+
+<div class="form-row">
+<label class="checkbox">
+<input type="checkbox" formControlName="rememberMe" />
+Lembrar-me
+</label>
+
+
+<a class="esqueci" routerLink="/esqueci">Esqueci a senha</a>
+</div>
+
+
+<button class="botao-entrar" type="submit" [disabled]="loading">
+{{ loading ? 'Entrando...' : 'Entrar' }}
+</button>
+
+
+<div class="login-link">
+Não tem uma conta?
+<a routerLink="/cadastro">Cadastrar-se</a>
+</div>
+
+
+<div class="server-error" *ngIf="error">
+{{ error }}
+</div>
+
+
+</form>
+</div>

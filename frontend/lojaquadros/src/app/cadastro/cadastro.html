@@ -7,7 +7,7 @@
 
     <div class="form-group">
       <label for="nome">Nome completo</label>
-      <input id="nome" type="text" formControlName="nome" placeholder="Digite seu nome completo" />
+      <input id="nome" type="text" formControlName="name" placeholder="Digite seu nome completo" />
     </div>
 
     <div class="form-group">
@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <label for="senha">Senha</label>
-      <input id="senha" type="password" formControlName="senha" placeholder="Digite uma senha segura" />
+      <input id="senha" type="password" formControlName="password" placeholder="Digite uma senha segura" />
     </div>
 
     <div class="form-group">
@@ -30,7 +30,7 @@
       <label for="termos">Concordo com os termos de uso e a política de privacidade.</label>
     </div>
 
-    <button type="submit" class="botao-cadastrar" [disabled]="formCadastro.invalid">
+    <button type="submit" class="botao-cadastrar">
       Cadastrar
     </button>
 

@@ -1,0 +1,90 @@
+<div class="pedidos-container">
+
+  <h2>Meus Pedidos</h2>
+  <p class="descricao">Acompanhe o status dos seus pedidos e confira detalhes.</p>
+
+  <!-- filtros rápidos -->
+  <div class="filtros">
+    <button class="filtro ativo">Todos</button>
+    <button class="filtro">Pendentes</button>
+    <button class="filtro">Enviados</button>
+    <button class="filtro">Entregues</button>
+    <button class="filtro">Cancelados</button>
+  </div>
+
+  <!-- mensagem quando não houver pedidos -->
+  <div class="pedidos-empty" style="display: none;">
+    <p>Você ainda não fez nenhum pedido.</p>
+    <a class="continue" href="/">Explorar quadros</a>
+  </div>
+
+  <!-- lista de pedidos -->
+  <div class="pedidos-list">
+
+    <!-- cartão de pedido (replicar dinamicamente) -->
+    <div class="pedido-card">
+
+      <div class="pedido-top">
+        <div class="pedido-info">
+          <div class="pedido-id">Pedido #<strong>2025-00123</strong></div>
+          <div class="pedido-meta">12 Nov 2025 • 3 itens</div>
+        </div>
+
+        <div class="pedido-side">
+          <div class="pedido-total">R$ 749,70</div>
+          <div class="pedido-status status-enviado">Enviado</div>
+          <button class="btn-detalhes" aria-expanded="false">Ver detalhes ▾</button>
+        </div>
+      </div>
+
+      <!-- detalhes ocultos por padrão -->
+      <div class="pedido-detalhes" hidden>
+        <div class="itens-list">
+          <div class="item">
+            <img src="assets/quadro1.jpg" alt="Quadro A" />
+            <div class="item-text">
+              <div class="item-name">Quadro A</div>
+              <div class="item-qty">Qtd: 1</div>
+            </div>
+            <div class="item-price">R$ 299,90</div>
+          </div>
+
+          <div class="item">
+            <img src="assets/quadro2.jpg" alt="Quadro B" />
+            <div class="item-text">
+              <div class="item-name">Quadro B</div>
+              <div class="item-qty">Qtd: 2</div>
+            </div>
+            <div class="item-price">R$ 449,80</div>
+          </div>
+        </div>
+
+        <div class="detalhes-rodape">
+          <div class="detalhes-endereco">
+            <strong>Entrega:</strong> Rua Exemplo, 123 — SP
+          </div>
+          <div class="detalhes-actions">
+            <button class="btn-track">Rastrear pedido</button>
+            <button class="btn-invoice">Baixar nota</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- fim pedido-card -->
+
+    <!-- repetir pedido-card... -->
+
+  </div>
+  <!-- fim pedidos-list -->
+
+  <!-- paginação simples -->
+  <div class="paginacao">
+    <button class="pg-btn">«</button>
+    <button class="pg-btn ativo">1</button>
+    <button class="pg-btn">2</button>
+    <button class="pg-btn">3</button>
+    <button class="pg-btn">»</button>
+  </div>
+
+</div>

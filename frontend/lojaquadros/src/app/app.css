@@ -1,7 +1,6 @@
-/* ARQUIVO: src/app/app.component.css */
 
 .container {
-  max-width: 1200px;
+  max-width: 3000px;
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -9,6 +8,22 @@
   overflow: hidden;
 }
 
+.cadastro {
+  font-size: 18px;
+  background-color: #c9a35e;
+  text-decoration: none;
+  color: white;
+  padding: 12px;
+  padding-left: 25px;
+   padding-right: 25px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.cadastro:hover {
+  background-color: #a1834a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
 /* --- Cabeçalho --- */
 .store-header {
   display: flex;
@@ -99,6 +114,7 @@
 .content-area {
   padding: 40px;
   min-height: 400px;
+  flex: none;
 }
 
 /* --- Rodapé --- */

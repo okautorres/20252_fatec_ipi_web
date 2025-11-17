@@ -1,56 +1,148 @@
-<div class="usuarios-container">
+<div class="admin-shell">
 
-  <header class="page-header">
-    <h1>Lista de Usuários</h1>
-    <p>Gerenciamento de usuários cadastrados no sistema.</p>
-  </header>
+  <aside class="admin-sidebar">
+    <div class="brand">
+      <h3>LojaQuadros</h3>
+      <small>Admin</small>
+    </div>
 
-  <div class="action-bar">
-    <a href="/usuarios/novo" class="btn-add-user">
-      + Cadastrar Novo Usuário
-    </a>
-  </div>
+    <nav class="nav">
+      <button class="nav-item active" data-target="dashboard">Dashboard</button>
+      <button class="nav-item" data-target="produtos">Produtos</button>
+      <button class="nav-item" data-target="usuarios">Usuários</button>
+      <button class="nav-item" data-target="pedidos">Pedidos</button>
+      <button class="nav-item" data-target="config">Configurações</button>
+    </nav>
 
-  <div class="table-responsive">
-    <table class="user-table">
-      <thead>
-        <tr>
-          <th>Id.</th>
-          <th>Nome</th>
-          <th>E-mail</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Maria da Silva</td>
-          <td>maria@norton.net.br</td>
-          <td>
-            <button class="btn btn-edit">Editar</button>
-            <button class="btn btn-delete">Excluir</button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>João Pereira</td>
-          <td>joao@norton.net.br</td>
-          <td>
-            <button class="btn btn-edit">Editar</button>
-            <button class="btn btn-delete">Excluir</button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Ana Costa</td>
-          <td>ana@norton.net.br</td>
-          <td>
-            <button class="btn btn-edit">Editar</button>
-            <button class="btn btn-delete">Excluir</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="sidebar-footer">
+      <button class="logout">Sair</button>
+    </div>
+  </aside>
 
+  <main class="admin-content">
+
+    <!-- DASHBOARD (visão geral) -->
+    <section id="dashboard" class="admin-section">
+      <h2>Visão geral</h2>
+      <div class="cards-row">
+        <div class="stat-card">
+          <div class="stat-title">Total de Vendas</div>
+          <div class="stat-value">R$ 18.420,00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Pedidos (30d)</div>
+          <div class="stat-value">124</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Produtos</div>
+          <div class="stat-value">86</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Usuários</div>
+          <div class="stat-value">1.540</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos" class="admin-section hidden">
+      <div class="section-head">
+        <h2>Gerenciar Produtos</h2>
+        <div class="actions">
+          <input class="search" placeholder="Buscar por nome ou SKU" />
+          <button class="btn primary" id="btnAddProduto">+ Novo produto</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Imagem</th>
+              <th>Nome</th>
+              <th>SKU</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Categoria</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Exemplo de linha; duplicar dinamicamente -->
+            <tr>
+              <td><img src="assets/quadro1.jpg" alt="" class="thumb" /></td>
+              <td>Quadro Azul — Paisagem</td>
+              <td>Q-00012</td>
+              <td>R$ 299,90</td>
+              <td>12</td>
+              <td>Paisagem</td>
+              <td class="actions-cell">
+                <button class="btn" data-action="edit">Editar</button>
+                <button class="btn danger" data-action="delete">Excluir</button>
+              </td>
+            </tr>
+
+            <!-- linha exemplo vazia -->
+            <!-- <tr><td colspan="7" class="empty">Nenhum produto encontrado.</td></tr> -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- USUÁRIOS -->
+    <section id="usuarios" class="admin-section hidden">
+      <div class="section-head">
+        <h2>Gerenciar Usuários</h2>
+        <div class="actions">
+          <input class="search" placeholder="Buscar por nome ou e-mail" />
+          <button class="btn primary" id="btnAddUser">+ Novo usuário</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th>Tipo</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Kauan Torres</td>
+              <td>kauan@example.com</td>
+              <td>(11) 99999-9999</td>
+              <td>Cliente</td>
+              <td><span class="badge active">Ativo</span></td>
+              <td class="actions-cell">
+                <button class="btn" data-action="edit">Editar</button>
+                <button class="btn danger" data-action="delete">Excluir</button>
+              </td>
+            </tr>
+            <!-- caso vazio -->
+            <!-- <tr><td colspan="6" class="empty">Nenhum usuário encontrado.</td></tr> -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PEDIDOS (link rápido) -->
+    <section id="pedidos" class="admin-section hidden">
+      <h2>Pedidos</h2>
+      <p class="descricao">Atalho: use a área de pedidos para filtrar / exportar.</p>
+      <!-- similar à página Meus Pedidos, mas com controles admin -->
+    </section>
+
+    <!-- CONFIG -->
+    <section id="config" class="admin-section hidden">
+      <h2>Configurações</h2>
+      <p class="descricao">Definições da loja, frete, pagamentos, etc.</p>
+    </section>
+
+  </main>
 </div>
+
