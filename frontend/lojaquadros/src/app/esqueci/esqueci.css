@@ -83,3 +83,12 @@
 .voltar-login a:hover {
   text-decoration: underline;
 }
+.alerta {
+  background: #fee;
+  color: #900;
+  border: 1px solid #f99;
+  padding: 10px;
+  margin-top: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+}

@@ -2,7 +2,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { Sobre } from './sobre/sobre';
-import { Usuarios } from './usuarios/usuarios';
+import { CadastroProd } from './cadastroprod/cadastroprod';
 import { Cadastro } from './cadastro/cadastro';
 import { LoginComponent } from './login/login';
 import {Esqueci} from './esqueci/esqueci';
@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'sobre', component: Sobre },
   {path: 'login', component: LoginComponent},
   {path: 'esqueci', component: Esqueci},
-  { path: 'usuarios', component: Usuarios },
+  { path: 'cadastroprod', component: CadastroProd },
   { path: 'cadastro', component: Cadastro },
 
 ];

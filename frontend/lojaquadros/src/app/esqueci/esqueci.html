@@ -3,20 +3,29 @@
   <h2>Recuperar senha</h2>
   <p class="descricao">Digite seu e-mail para enviarmos um link de recuperação.</p>
 
-  <form class="esqueci-form">
+  <form [formGroup]="formEsqueci" (ngSubmit)="enviarLink()" class="esqueci-form" novalidate>
 
     <div class="form-group">
       <label for="email">E-mail cadastrado</label>
-      <input id="email" type="email" placeholder="seu@email.com"/>
+      <input id="email" type="email" placeholder="seu@email.com" formControlName="email" />
+      <small *ngIf="f['email'].touched && f['email'].invalid">
+        <span *ngIf="f['email'].hasError('required')">E-mail é obrigatório.</span>
+        <span *ngIf="f['email'].hasError('email')">E-mail inválido.</span>
+      </small>
     </div>
 
-    <button class="botao-recuperar" type="submit">
-      Enviar link
+    <button class="botao-recuperar" type="submit" [disabled]="formEsqueci.invalid || carregando">
+      <span *ngIf="!carregando">Enviar link</span>
+      <span *ngIf="carregando">Enviando...</span>
     </button>
 
     <div class="voltar-login">
       Lembrou a senha?
-      <a href="/login">Voltar para o login</a>
+      <a routerLink="/login">Voltar para o login</a>
+    </div>
+
+    <div class="alerta" *ngIf="alerta">
+      <b>{{ alerta }}</b>
     </div>
 
   </form>

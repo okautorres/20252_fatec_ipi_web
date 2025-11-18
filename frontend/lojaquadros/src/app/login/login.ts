@@ -14,15 +14,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
     imports: [                              
-    CommonModule,          // para *ngIf, *ngFor etc.
-    ReactiveFormsModule,   // para formGroup, formControlName
-    RouterModule           // se usar routerLink no template
+    CommonModule,         
+    ReactiveFormsModule,  
+    RouterModule          
   ]
 })
 export class LoginComponent implements OnInit {
   loading = false;
   error: string | null = null;
-  form!: FormGroup; // será inicializado no ngOnInit
+  form!: FormGroup; 
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // inicializa o form após o constructor ter rodado
+
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],

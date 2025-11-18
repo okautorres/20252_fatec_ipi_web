@@ -1,0 +1,77 @@
+<div class="home-container cadastro-produto">
+
+  <h2 class="title">Cadastrar Produto</h2>
+  <p class="subtitle">Adicione um quadro à sua galeria</p>
+
+  <form class="produto-form" (ngSubmit)="salvarProduto()" [formGroup]="formProduto" novalidate>
+
+    <div class="form-row">
+      <div class="form-col">
+        <label for="name">Nome</label>
+        <input id="name" type="text" formControlName="name" placeholder="Nome do produto" />
+      </div>
+
+      <div class="form-col">
+        <label for="value">Valor (R$)</label>
+        <input id="value" type="number" formControlName="value" step="0.01" placeholder="0.00" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-col">
+        <label for="promo">Preço em Promoção (opcional)</label>
+        <input id="promo" type="number" formControlName="promo" step="0.01" placeholder="0.00" />
+      </div>
+
+      <div class="form-col">
+        <label for="qt">Quantidade</label>
+        <input id="qt" type="number" formControlName="qt" placeholder="0" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-col">
+        <label for="contrast">Contraste (0-100)</label>
+        <input id="contrast" type="number" formControlName="contrast" min="0" max="100" placeholder="50" />
+      </div>
+
+      <div class="form-col">
+        <label for="keywords">Palavras-chave (vírgula separadas)</label>
+        <input id="keywords" type="text" formControlName="keywords" placeholder="ex: mar, praia, abstrato" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descr">Descrição</label>
+      <textarea id="descr" formControlName="descr" rows="4" placeholder="Descrição do produto"></textarea>
+    </div>
+
+    <div class="form-row foto-row">
+      <div class="form-col foto-col">
+        <label for="foto">Foto do produto</label>
+        <input id="foto" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <small class="hint">JPG/PNG — ideal 1200x800px</small>
+      </div>
+
+      <div class="form-col preview-col">
+        <label>Pré-visualização</label>
+        <div class="preview-box" *ngIf="preview">
+          <img [src]="preview" alt="Pré-visualização da foto" />
+        </div>
+        <div class="preview-box empty" *ngIf="!preview">Nenhuma imagem selecionada</div>
+      </div>
+    </div>
+
+    <div class="actions-row">
+      <button type="submit" class="botao-cadastrar" [disabled]="formProduto.invalid || carregando">
+        <span *ngIf="!carregando">Salvar produto</span>
+        <span *ngIf="carregando">Salvando...</span>
+      </button>
+
+      <button type="button" class="botao-cancel" (click)="limpar()">Limpar</button>
+    </div>
+
+    <div class="alerta" *ngIf="alerta" aria-live="polite"><b>{{ alerta }}</b></div>
+
+  </form>
+</div>

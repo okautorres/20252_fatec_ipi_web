@@ -16,9 +16,25 @@
       <li><a href="/carrinho">Carrinho</a></li>
       <li><a href="/pedidos">Meus Pedidos</a></li>
       <li><a href="/sobre">Sobre</a></li>
-      <li><a href="/usuarios">Area admin</a></li>
-      </ul>
-      <a href="/login" class="cadastro">Login</a>
+      <li><a href="/cadastroprod">Cadastre um produto</a></li>
+    </ul>
+
+    <!-- LOGIN -->
+    <a *ngIf="!auth.isAuthenticated()" 
+       href="/login"
+       class="cadastro">
+      Login
+    </a>
+
+    <!-- SAIR -->
+    <a *ngIf="auth.isAuthenticated()"
+       href="/"
+       (click)="auth.logout()"
+       class="cadastro"
+       style="cursor: pointer;">
+      Sair
+    </a>
+
   </nav>
 
   <main class="content-area">

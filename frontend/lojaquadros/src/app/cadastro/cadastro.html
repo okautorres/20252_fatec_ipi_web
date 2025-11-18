@@ -3,38 +3,70 @@
   <h2>Crie sua conta</h2>
   <p class="descricao">Preencha os campos abaixo para se cadastrar na LojaQuadros.</p>
 
-  <form [formGroup]="formCadastro" (ngSubmit)="cadastrarUsuario()" class="cadastro-form">
+  <form [formGroup]="formCadastro" (ngSubmit)="cadastrarUsuario()" class="cadastro-form" novalidate>
 
+    <!-- NOME -->
     <div class="form-group">
       <label for="nome">Nome completo</label>
       <input id="nome" type="text" formControlName="name" placeholder="Digite seu nome completo" />
+      <small *ngIf="f['name'].touched && f['name'].invalid">
+        <span *ngIf="f['name'].hasError('required')">Nome é obrigatório.</span>
+      </small>
     </div>
 
+    <!-- EMAIL -->
     <div class="form-group">
       <label for="email">E-mail</label>
       <input id="email" type="email" formControlName="email" placeholder="exemplo@email.com" />
+      <small *ngIf="f['email'].touched && f['email'].invalid">
+        <span *ngIf="f['email'].hasError('required')">E-mail é obrigatório.</span>
+        <span *ngIf="f['email'].hasError('email')">E-mail inválido.</span>
+      </small>
     </div>
 
+    <!-- SENHA -->
     <div class="form-group">
       <label for="senha">Senha</label>
       <input id="senha" type="password" formControlName="password" placeholder="Digite uma senha segura" />
+      <small *ngIf="f['password'].touched && f['password'].invalid">
+        <span *ngIf="f['password'].hasError('required')">Senha é obrigatória.</span>
+        <span *ngIf="f['password'].hasError('minlength')">A senha precisa ter ao menos 6 caracteres.</span>
+      </small>
     </div>
 
+    <!-- CONFIRMAR SENHA -->
     <div class="form-group">
       <label for="confirmarSenha">Confirmar senha</label>
       <input id="confirmarSenha" type="password" formControlName="confirmarSenha" placeholder="Repita a senha" />
+      <small *ngIf="f['confirmarSenha'].touched && f['confirmarSenha'].invalid">
+        <span *ngIf="f['confirmarSenha'].hasError('required')">Confirmação obrigatória.</span>
+        <span *ngIf="f['confirmarSenha'].hasError('naoIgual')">As senhas não coincidem.</span>
+      </small>
     </div>
 
+    <!-- TERMOS -->
     <div class="form-group termos">
       <input id="termos" type="checkbox" formControlName="termos" />
       <label for="termos">Concordo com os termos de uso e a política de privacidade.</label>
+      <small *ngIf="f['termos'].touched && f['termos'].invalid">
+        <span *ngIf="f['termos'].hasError('requiredTrue')">Você precisa aceitar os termos.</span>
+      </small>
     </div>
 
-    <button type="submit" class="botao-cadastrar">
+    <!-- BOTÃO -->
+    <button type="submit" class="botao-cadastrar" [disabled]="formCadastro.invalid">
       Cadastrar
     </button>
 
-    <b>{{ alerta }}</b>
+    <!-- ALERTA -->
+    <div class="alerta" *ngIf="alerta">
+      <b>{{ alerta }}</b>
+    </div>
+
+    <!-- Link para login -->
+    <p class="ja-tem-conta">
+      Já tem conta? <a routerLink="/login">Entrar</a>
+    </p>
 
   </form>
 

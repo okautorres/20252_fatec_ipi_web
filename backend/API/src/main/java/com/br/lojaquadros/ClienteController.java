@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -132,34 +133,45 @@ public class ClienteController {
                 return clienteSemSenha;
             }
         }
+        
         System.out.println("Erro: E-mail, senha ou conta inativos. Verifique suas credenciais.");
         return new Cliente(); 
     }
 
     //REDIFINIR SENHA
 
-    @PostMapping("/cliente/redefinir-senha")
-    public void resetPassword(@RequestBody Cliente obj) {
-        Optional<Cliente> re = bd.findByEmail(obj.getEmail());
-        
-        if (re.isPresent()) {
-            Cliente cliente = re.get();
-            String tokenRedefinicao = UUID.randomUUID().toString();
-            cliente.setTokenEmail(tokenRedefinicao); 
-            bd.save(cliente);
+@PostMapping("/cliente/redefinir-senha")
+public ResponseEntity<?> resetPassword(@RequestBody Cliente obj) {
 
-            String linkRedefinicao = "http://localhost:8080/cliente/nova-senha?token=" + tokenRedefinicao;
-            String assunto = "Redefinição de Senha";
-            String corpo = "Olá " + cliente.getName() + ",\n\n"
-                        + "Recebemos uma solicitação para redefinir sua senha. Se você não fez essa solicitação, pode ignorar este e-mail. Caso contrário, clique no link abaixo para criar uma nova senha:\n"
-                        + linkRedefinicao + "\n\n"
-                        + "O link expira em 30 minutos.\n\n" 
-                        + "Atenciosamente,\n"
-                        + "Equipe Loja de Quadros.";
-            
-            lojaService.sendEmail(cliente.getEmail(), assunto, corpo);
-        }
+    Optional<Cliente> re = bd.findByEmail(obj.getEmail());
+
+    if (!re.isPresent()) {
+        // retorna status 404 + mensagem
+        return ResponseEntity
+                .status(404)
+                .body("não existe esse email");
     }
+    
+    Cliente cliente = re.get();
+    String tokenRedefinicao = UUID.randomUUID().toString();
+    cliente.setTokenEmail(tokenRedefinicao);
+    bd.save(cliente);
+
+    String linkRedefinicao = "http://localhost:8080/cliente/nova-senha?token=" + tokenRedefinicao;
+
+    String assunto = "Redefinição de Senha";
+    String corpo = "Olá " + cliente.getName() + ",\n\n"
+            + "Recebemos uma solicitação para redefinir sua senha. Se você não fez essa solicitação, pode ignorar este e-mail. Caso contrário, clique no link abaixo para criar uma nova senha:\n"
+            + linkRedefinicao + "\n\n"
+            + "O link expira em 30 minutos.\n\n"
+            + "Atenciosamente,\n"
+            + "Equipe Loja de Quadros.";
+
+    lojaService.sendEmail(cliente.getEmail(), assunto, corpo);
+
+    return ResponseEntity.ok("E-mail de redefinição enviado.");
+}
+
 
     //NOVA SENHA
 

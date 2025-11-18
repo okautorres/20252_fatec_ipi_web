@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Produto {
@@ -17,7 +18,21 @@ public class Produto {
     private int qt;
     private int contrast;
     private String keywords;
+    @Transient
+    private String imageBase64;
+    private String imageUrl;
+
+    public String getImageBase64() { return imageBase64; }
+    public void setImageBase64(String imageBase64) { this.imageBase64 = imageBase64; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
     
+    public String getDescr() {
+        return descr;
+    }
+
     public int getId() {
         return id;
     }
@@ -66,6 +81,7 @@ public class Produto {
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
+
 
 
 }

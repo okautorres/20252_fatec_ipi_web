@@ -1,46 +1,38 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { LoginRequest, LoginResponse } from '../models/login-request.model';
-
+import { StorageService } from './storage.service';
+import { LoginRequest } from '../models/login-request.model';
+import { LoginResponse } from '../models/login-request.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-private api = 'http://localhost:8080';
+  private api = 'http://localhost:8080';
 
+  constructor(private http: HttpClient, private storage: StorageService, private router: Router) {}
 
-constructor(private http: HttpClient) {}
+  login(payload: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.api}/cliente/login`, payload).pipe(
+      tap(res => {
+        if (res?.accessToken) {
+          this.storage.setToken(res.accessToken, !!payload.rememberMe);
+        }
+      })
+    );
+  }
 
+  logout() {
+    this.storage.clear();
+    this.router.navigate(['/login']);
+  }
 
-login(payload: LoginRequest): Observable<LoginResponse> {
-return this.http.post<LoginResponse>(`${this.api}/cliente/login`, payload).pipe(
-tap(res => {
-if (res && res.accessToken) {
-localStorage.setItem('access_token', res.accessToken);
-if (payload.rememberMe) {
-localStorage.setItem('remember_me', '1');
-} else {
-localStorage.removeItem('remember_me');
-}
-}
-})
-);
-}
+  getToken(): string | null {
+    return this.storage.getToken();
+  }
 
-
-logout() {
-localStorage.removeItem('access_token');
-localStorage.removeItem('remember_me');
-// navegar para login se quiser — não incluí Router aqui por ser responsabilidade do componente
-}
-
-
-getToken() {
-return localStorage.getItem('access_token');
-}
-
-
-isAuthenticated(): boolean {
-return !!this.getToken();
-}
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
 }

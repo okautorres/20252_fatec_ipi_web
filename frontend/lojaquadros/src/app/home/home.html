@@ -10,16 +10,16 @@
 
       <!-- Loop dos produtos -->
       <div class="product-card" *ngFor="let p of produtos" (click)="verProduto(p.id!)">
-        
-        <img class="product-image" 
-             [alt]="p.name">
+  <!-- src usa p.imageUrl completa; se não existir, mostra placeholder local -->
+  <img class="product-image"
+       [src]="p.imageUrl ? p.imageUrl : 'assets/placeholder.png'"
+       [alt]="p.name" />
 
-        <div class="product-info">
-          <h3 class="product-name">{{ p.name }}</h3>
-          <p class="product-price">R$ {{ p.value | number:'1.2-2' }}</p>
-        </div>
-
-      </div>
+  <div class="product-info">
+    <h3 class="product-name">{{ p.name }}</h3>
+    <p class="product-price">R$ {{ p.value | number:'1.2-2' }}</p>
+  </div>
+</div>
 
     </div>
 
