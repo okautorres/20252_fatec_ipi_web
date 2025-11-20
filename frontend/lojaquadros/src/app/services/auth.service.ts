@@ -1,38 +1,102 @@
-// auth.service.ts
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { StorageService } from './storage.service';
-import { LoginRequest } from '../models/login-request.model';
-import { LoginResponse } from '../models/login-request.model';
-import { Router } from '@angular/router';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private api = 'http://localhost:8080';
+  private base = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private storage: StorageService, private router: Router) {}
+  private AUTH_KEY = 'auth';
+  private USER_KEY = 'username';
+  private TOKEN_KEY = 'token';
 
-  login(payload: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.api}/cliente/login`, payload).pipe(
-      tap(res => {
-        if (res?.accessToken) {
-          this.storage.setToken(res.accessToken, !!payload.rememberMe);
-        }
-      })
-    );
+
+  // 👇 NÃO PODE usar localStorage aqui!!!
+  private loggedIn$ = new BehaviorSubject<boolean>(false);
+  private username$ = new BehaviorSubject<string | null>(null);
+
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {
+    // Inicializa somente no browser
+    if (this.isBrowser()) {
+      this.loggedIn$.next(this.loadIsLoggedIn());
+      this.username$.next(this.loadUserName());
+    }
   }
 
+  private isBrowser() {
+    return isPlatformBrowser(this.platformId);
+  }
+
+  // ---------- LOGIN ----------
+ // no auth.service.ts (assumindo isBrowser() já implementado)
+login(payload: any): Observable<any> {
+  return this.http.post<any>(`${this.base}/cliente/login`, payload).pipe(
+    tap(response => {
+      console.log('AuthService login response', response);
+      if (!response) {
+        // nada a fazer
+        return;
+      }
+      // preferível usar token; aqui usamos name como mínimo
+      if (this.isBrowser() && response.name) {
+        localStorage.setItem(this.AUTH_KEY, 'true');
+        localStorage.setItem(this.USER_KEY, response.name);
+        if (response.token) localStorage.setItem(this.TOKEN_KEY, response.token);
+        this.loggedIn$.next(true);
+        this.username$.next(response.name);
+      } else {
+        // não marque como autenticado
+        this.loggedIn$.next(false);
+        this.username$.next(null);
+      }
+    })
+  );
+}
+
+
+  // ---------- LOGOUT ----------
   logout() {
-    this.storage.clear();
-    this.router.navigate(['/login']);
+    if (this.isBrowser()) {
+      localStorage.removeItem(this.AUTH_KEY);
+      localStorage.removeItem(this.USER_KEY);
+    }
+
+    this.loggedIn$.next(false);
+    this.username$.next(null);
   }
 
-  getToken(): string | null {
-    return this.storage.getToken();
+  // ---------- GETTERS ----------
+  isLoggedIn(): boolean {
+    if (!this.isBrowser()) return false;
+    return localStorage.getItem(this.AUTH_KEY) === 'true';
   }
 
-  isAuthenticated(): boolean {
-    return !!this.getToken();
+  getUserName(): string | null {
+    if (!this.isBrowser()) return null;
+    return localStorage.getItem(this.USER_KEY);
+  }
+
+  getLoggedIn$(): Observable<boolean> {
+    return this.loggedIn$.asObservable();
+  }
+
+  getUsername$(): Observable<string | null> {
+    return this.username$.asObservable();
+  }
+
+  // ---------- SAFE LOADERS ----------
+  private loadIsLoggedIn(): boolean {
+    if (!this.isBrowser()) return false;
+    return localStorage.getItem(this.AUTH_KEY) === 'true';
+  }
+
+  private loadUserName(): string | null {
+    if (!this.isBrowser()) return null;
+    return localStorage.getItem(this.USER_KEY);
   }
 }

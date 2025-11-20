@@ -1,0 +1,19 @@
+<div class="activation-page">
+  <div *ngIf="loading">
+    <p>Ativando sua conta... Aguarde.</p>
+  </div>
+
+  <div *ngIf="!loading && message" class="success">
+    <h2>Sucesso</h2>
+    <p>{{ message }}</p>
+    <p>Você será redirecionado para o login em alguns segundos.</p>
+    <a routerLink="/login">Ir para login agora</a>
+  </div>
+
+  <div *ngIf="!loading && error" class="error">
+    <h2>Ops!</h2>
+    <p>{{ error }}</p>
+    <p>Verifique o link ou tente novamente.</p>
+    <a routerLink="/">Voltar para a home</a>
+  </div>
+</div>

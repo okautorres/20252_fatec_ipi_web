@@ -1,10 +1,12 @@
 package com.br.lojaquadros;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,7 +51,7 @@ public class ClienteController {
         bd.save(obj);
         System.out.println("Cliente salvo com sucesso.");
 
-        String linkConfirmacao = "http://localhost:8080/cliente/ativar?token=" + token;
+        String linkConfirmacao = "http://localhost:4200/ativar?token=" + token;
         String assunto = "Confirmação de Cadastro - " + obj.getName();
         String corpo = "Olá " + obj.getName() + ",\n\n"
                  + "Obrigado por se cadastrar em nossa loja! Para ativar sua conta e começar a usar, temos um sistema de segunraça, por favor, clique no link abaixo:\n"
@@ -62,7 +64,7 @@ public class ClienteController {
     }
 
     //ATIVAÇÃO
-    
+    @CrossOrigin(origins = "http://localhost:4200")
     @PatchMapping("/cliente/ativar")
     public void ativarCliente(@RequestParam("token") String token) {
         Optional<Cliente> re = bd.findByTokenEmail(token);
@@ -80,7 +82,7 @@ public class ClienteController {
 
     //PEGAR POR ID
 
-    @GetMapping("/cliente/{id}")
+    @GetMapping("/cliente/{id:\\\\d+}")
     public Cliente getCliente(@PathVariable("id") int id){
         if(bd.existsById(id)){
             return bd.findById(id).get();
@@ -118,25 +120,33 @@ public class ClienteController {
 
     //LOGIN
 
-    @PostMapping("/cliente/login")
-    public Cliente login(@RequestBody Cliente obj){
-        Optional<Cliente> re = bd.findByEmail(obj.getEmail());
-        
-        if(re.isPresent()){
-            Cliente cliente = re.get();
-            if(passwordEncoder.matches(obj.getPassword(), cliente.getPassword()) && cliente.getActive() == 1) {
-                System.out.println("Login efetuado com sucesso!");
-                Cliente clienteSemSenha = new Cliente();
-                clienteSemSenha.setId(cliente.getId());
-                clienteSemSenha.setName(cliente.getName());
-                clienteSemSenha.setEmail(cliente.getEmail());
-                return clienteSemSenha;
-            }
-        }
-        
-        System.out.println("Erro: E-mail, senha ou conta inativos. Verifique suas credenciais.");
-        return new Cliente(); 
+@PostMapping("/cliente/login")
+public ResponseEntity<?> login(@RequestBody Cliente obj){
+    Optional<Cliente> re = bd.findByEmail(obj.getEmail());
+
+    if (re.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .body(Map.of("message", "E-mail ou senha inválidos."));
     }
+
+    Cliente cliente = re.get();
+
+    if (!passwordEncoder.matches(obj.getPassword(), cliente.getPassword())) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .body(Map.of("message", "E-mail ou senha inválidos."));
+    }
+
+    if (cliente.getActive() != 1) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                             .body(Map.of("message", "Conta inativa. Verifique seu e-mail para ativação."));
+    }
+
+    String token = null; // ou gere JWT
+    LoginResponse resp = new LoginResponse(cliente.getId(), cliente.getName(), cliente.getEmail(), token);
+    return ResponseEntity.ok(resp);
+}
+
+
 
     //REDIFINIR SENHA
 

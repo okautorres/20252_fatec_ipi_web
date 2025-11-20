@@ -16,4 +16,25 @@ background: #fff;
 .checkbox { display:flex; align-items:center; gap:8px; }
 .botao-entrar { width:100%; padding:10px; border-radius:8px; border:none; cursor:pointer; font-weight:700; }
 .error small { color:#c53030; }
-.server-error { margin-top:12px; color:#c53030; font-weight:600; }
+
+
+/* simples: aparece logo abaixo do botão, dentro do fluxo */
+.server-error {
+  position: static;           /* volta ao fluxo normal */
+  display: block;
+  margin: 12px auto 0 auto;   /* espaço acima, centralizado */
+  background: #fdecea;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  max-width: 100%;
+  box-shadow: none;
+}
+
+
+
+
+

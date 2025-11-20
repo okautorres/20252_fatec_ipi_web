@@ -1,41 +1,36 @@
 <div class="container">
   
-  <header class="store-header">
-    <a href="/" class="header-link">
-      <div class="logo">LQ</div>
-      <div class="store-title">
-        <h1>LojaQuadros</h1>
-        <h3>Arte que decora, emoção que inspira.</h3>
-      </div>
-    </a>
-  </header>
+<header class="store-header">
+  <a routerLink="/" class="header-link">
+    <div class="logo">LQ</div>
+    <div class="store-title">
+      <h1>LojaQuadros</h1>
+      <h3>Arte que decora, emoção que inspira.</h3>
+    </div>
+  </a>
+</header>
 
-  <nav class="main-nav">
-    <ul>
-      <li><a href="/busca">Busca</a></li>
-      <li><a href="/carrinho">Carrinho</a></li>
-      <li><a href="/pedidos">Meus Pedidos</a></li>
-      <li><a href="/sobre">Sobre</a></li>
-      <li><a href="/cadastroprod">Cadastre um produto</a></li>
-    </ul>
 
-    <!-- LOGIN -->
-    <a *ngIf="!auth.isAuthenticated()" 
-       href="/login"
-       class="cadastro">
-      Login
-    </a>
+<nav class="main-nav">
+  <ul>
+    <li><a routerLink="/busca">Busca</a></li>
+    <li><a routerLink="/carrinho">Carrinho</a></li>
+    <li><a routerLink="/pedidos">Meus Pedidos</a></li>
+    <li><a routerLink="/sobre">Sobre</a></li>
+    <li><a routerLink="/cadastroprod">Cadastre um produto</a></li>
+  </ul>
 
-    <!-- SAIR -->
-    <a *ngIf="auth.isAuthenticated()"
-       href="/"
-       (click)="auth.logout()"
-       class="cadastro"
-       style="cursor: pointer;">
-      Sair
-    </a>
+<a *ngIf="!(auth.getLoggedIn$() | async)" routerLink="/login" class="cadastro">Login</a>
 
-  </nav>
+  <!-- quando loggedIn for true mostra nome e botão sair -->
+  <ng-container *ngIf="auth.getLoggedIn$() | async">
+    <span class="cadastro">👋 Olá, {{ auth.getUsername$() | async }}</span>
+    <a (click)="auth.logout()" class="cadastro" style="cursor:pointer; margin-left:8px">Sair</a>
+  </ng-container>
+
+</nav>
+
+
 
   <main class="content-area">
     <router-outlet></router-outlet>

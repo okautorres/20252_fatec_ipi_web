@@ -24,6 +24,10 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'esqueci', component: Esqueci},
   { path: 'cadastroprod', component: CadastroProd },
+  {
+    path: 'ativar',
+    loadComponent: () => import('./activation/activation').then(m => m.ActivationComponent)
+  },
   { path: 'cadastro', component: Cadastro },
 
 ];
