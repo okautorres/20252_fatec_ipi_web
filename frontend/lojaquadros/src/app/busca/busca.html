@@ -3,32 +3,31 @@
   <h2>Buscar quadros</h2>
   <p class="descricao">Pesquise por nome, artista ou categoria.</p>
 
-  <form class="busca-form">
+  <form class="busca-form" (ngSubmit)="pesquisar()">
     <div class="form-group search-group">
-      <input type="text" placeholder="Digite o nome do quadro..." />
+
+      <input 
+        type="text"
+        placeholder="Digite o nome do quadro..."
+        [(ngModel)]="termo"
+        name="termo"
+      />
+
       <button type="submit" class="botao-buscar">Pesquisar</button>
     </div>
   </form>
 
-  <!-- Mensagem quando não tiver pesquisa -->
-  <div class="mensagem-inicial">
-    Digite um termo acima para iniciar a busca.
-  </div>
-
-  <!-- Exemplo de resultados da busca -->
+  <!-- RESULTADOS -->
   <div class="resultados">
 
-    <!-- CARD DE PRODUTO -->
-    <div class="product-card">
-      <img src="assets/exemplo.jpg" alt="Quadro Exemplo" class="product-image" />
-
+    <div class="product-card" *ngFor="let p of produtos">
+      <img [src]="p.imageUrl" alt="{{ p.name }}" class="product-image" />
       <div class="product-info">
-        <h3 class="product-name">Nome do Quadro</h3>
-        <p class="product-price">R$ 199,90</p>
+        <h3 class="product-name">{{ p.name }}</h3>
+        <p class="product-price">R$ {{ p.value }}</p>
       </div>
     </div>
 
-    <!-- repete product-card aqui dinamicamente -->
   </div>
 
 </div>

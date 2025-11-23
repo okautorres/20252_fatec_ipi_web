@@ -1,4 +1,4 @@
-
+/* === SEU CSS ORIGINAL (inalterado) === */
 .container {
   max-width: 3000px;
   width: 100%;
@@ -128,4 +128,195 @@
 
 .store-footer p {
   margin: 5px 0;
+}
+
+/* botão hamburger - escondido em desktop */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* estilo da lista em mobile (fechado por padrão) */
+.main-nav ul {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: max-height 0.25s ease-in-out;
+}
+
+/* estado mobile: escondemos a lista e mostramos botão */
+@media (max-width: 820px) {
+  .nav-toggle { display: block; }
+
+  .main-nav {
+    align-items: center;
+  }
+
+  .main-nav ul {
+    display: block;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .main-nav ul.open {
+    max-height: 500px; /* suficiente para mostrar itens */
+  }
+
+  .main-nav ul li {
+    border-top: 1px solid #eee;
+  }
+
+  .main-nav ul li a {
+    display: block;
+    padding: 12px 16px;
+  }
+
+  .auth-area {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+  }
+
+  /* reduz grandes paddings que atrapalham */
+  .store-header, .main-nav { padding-left: 12px; padding-right: 12px; }
+}
+
+/* ============================
+   BLOCO ADICIONAL: RESPONSIVO MOBILE (APENAS ADICIONADO)
+   ============================ */
+
+/* pequenas correções para evitar sobreposição do logo e botão */
+@media (max-width: 820px) {
+  /* evita que o brand quebre e empurre tudo */
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  /* garantir que o logo não force a quebra do nav */
+  .logo {
+    margin-right: 8px;
+    padding: 8px 12px; /* reduzido no mobile */
+  }
+
+  /* colocar o botão hamburger alinhado à direita */
+  .nav-toggle {
+    display: block;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: auto;
+    z-index: 50;
+  }
+
+  /* tornar o menu dropdown absoluto para não empurrar conteúdo */
+  .main-nav ul {
+    position: absolute;
+    top: calc(100% + 0px); /* logo/nav altura aproximada */
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: white;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height .32s ease, opacity .2s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    border-top: 1px solid #efefef;
+  }
+
+  /* quando estiver aberto (via Angular [class.open]) */
+  .main-nav ul.open {
+    max-height: 420px;
+    opacity: 1;
+  }
+
+  /* garantir que links ocupem largura total */
+  .main-nav ul li a {
+    display: block;
+    padding: 12px 18px;
+  }
+
+  /* esconder a área de auth do topo, vamos exibir dentro do menu (mobile) */
+  .auth-area { display: none; }
+
+  /* estilo para itens mobile-auth (seus <li class="mobile-auth">) */
+  .mobile-auth .cadastro {
+    display: block;
+    width: calc(100% - 36px);
+    margin: 10px 18px;
+    box-sizing: border-box;
+  }
+}
+
+/* segurança extra para telas muito pequenas */
+@media (max-width: 420px) {
+  .store-title h1 { font-size: 1rem; }
+  .store-title h3 { font-size: 0.75rem; }
+  .cadastro { padding-left: 12px; padding-right: 12px; font-size: 14px; }
+}
+/* Fixes para garantir que o dropdown do menu funcione */
+.main-nav { position: relative; z-index: 30; }
+
+/* garante que o botão fique acima de outros elementos */
+.nav-toggle { position: relative; z-index: 60; }
+
+/* menu fechado não captura cliques; quando aberto captura */
+.main-nav ul {
+  pointer-events: none;
+  transition: max-height .32s ease, opacity .2s ease;
+  opacity: 0;
+  max-height: 0;
+}
+.main-nav ul.open {
+  pointer-events: auto;
+  opacity: 1;
+  max-height: 500px; /* suficiente para mostrar itens */
+  z-index: 50;
+}
+
+/* se houver outro elemento invisível sobrepondo, forçar visibilidade do botão */
+.store-header, .header-link { pointer-events: auto; }
+
+/* botão tipo button para evitar submit acidental */
+.nav-toggle { -webkit-tap-highlight-color: transparent; }
+
+/* ajuste opcional caso o menu fique atrás de outros elementos */
+.main-nav ul.open { box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: #fff; }
+/* ====== FORÇAR LAYOUT DESKTOP ======
+   aplica quando a tela for maior que 820px */
+@media (min-width: 821px) {
+  .nav-toggle { display: none !important; } /* esconder botão hamburger */
+
+  .main-nav ul {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-top: none !important;
+  }
+
+  .main-nav ul.open { /* garante que .open não esconda nada no desktop */
+    max-height: none !important;
+    opacity: 1 !important;
+  }
+
+  /* caso você tenha escondido .auth-area no mobile, mostra no desktop */
+  .auth-area { display: flex !important; }
 }

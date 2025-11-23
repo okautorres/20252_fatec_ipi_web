@@ -10,6 +10,7 @@ export class ProdutoService {
   private base = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
+  
 
   listVitrine(): Observable<Produto[]> {
     return this.http.get<Produto[]>(`${this.base}/produtos/vitrine`)
@@ -28,6 +29,16 @@ export class ProdutoService {
         catchError(err => this.handleErrorFallback(err, []))
       );
   }
+
+busca(termo: string): Observable<Produto[]> {
+  return this.http.get<Produto[]>(`${this.base}/produtos/termo/${termo}`)
+    .pipe(
+      retry(1),
+      map(list => (list || []).map(p => this.withFullImageUrl(p))),
+      catchError(err => this.handleErrorFallback(err, []))
+    );
+}
+
 
   get(id: number): Observable<Produto | null> {
     if (!id) return of(null);

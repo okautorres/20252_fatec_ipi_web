@@ -1,12 +1,10 @@
-// app.component.ts (ou navbar.component.ts)
+// app.component.ts (atualize a classe App)
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { RouterModule } from '@angular/router';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +18,24 @@ export class App implements OnInit, OnDestroy {
 
   private subs = new Subscription();
 
-  constructor(public auth: AuthService) {}
+  mobileMenuOpen = false;
+
+  constructor(public auth: AuthService, private router: Router) {}
+
+  toggleMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+    console.log('toggleMenu ->', this.mobileMenuOpen);
+  }
 
   ngOnInit() {
     this.subs.add(this.auth.getUsername$().subscribe(name => this.username = name));
     this.subs.add(this.auth.getLoggedIn$().subscribe(flag => this.loggedIn = flag));
+
+    // Fecha o menu automaticamente quando houver navegação
+    this.subs.add(
+      this.router.events.pipe(filter(e => e instanceof NavigationEnd))
+        .subscribe(() => this.mobileMenuOpen = false)
+    );
   }
 
   ngOnDestroy() {

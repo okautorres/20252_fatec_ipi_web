@@ -1,41 +1,67 @@
 <div class="container">
-  
-<header class="store-header">
-  <a routerLink="/" class="header-link">
-    <div class="logo">LQ</div>
-    <div class="store-title">
-      <h1>LojaQuadros</h1>
-      <h3>Arte que decora, emoção que inspira.</h3>
+
+  <!-- HEADER (logo + título) -->
+  <header class="store-header">
+    <a routerLink="/" class="header-link">
+      <div class="logo">LQ</div>
+      <div class="store-title">
+        <h1>LojaQuadros</h1>
+        <h3>Arte que decora, emoção que inspira.</h3>
+      </div>
+    </a>
+  </header>
+
+  <!-- NAVBAR -->
+  <nav class="main-nav">
+
+
+    <!-- BOTÃO HAMBURGER -->
+<button class="nav-toggle" type="button" (click)="toggleMenu()" [attr.aria-expanded]="mobileMenuOpen">
+  <span class="sr-only">Abrir menu</span>
+  <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 6h18M3 12h18M3 18h18"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"/>
+  </svg>
+</button>
+
+<!-- MENU -->
+<ul [class.open]="mobileMenuOpen">
+  <li><a routerLink="/busca">Busca</a></li>
+  <li><a routerLink="/carrinho">Carrinho</a></li>
+  <li><a routerLink="/pedidos">Meus Pedidos</a></li>
+  <li><a routerLink="/sobre">Sobre</a></li>
+  <li><a routerLink="/cadastroprod">Cadastre um produto</a></li>
+
+  <li class="mobile-auth" *ngIf="!(auth.getLoggedIn$() | async)">
+    <a routerLink="/login" class="cadastro">Login</a>
+  </li>
+
+  <li class="mobile-auth" *ngIf="auth.getLoggedIn$() | async">
+    <a (click)="auth.logout()" class="cadastro">Sair</a>
+  </li>
+</ul>
+
+
+    <!-- LOGIN / SAIR (versão desktop) -->
+    <div class="auth-area">
+
+      <ng-container *ngIf="auth.getLoggedIn$() | async">
+        <span class="cadastro greeting">
+          👋 Olá, {{ auth.getUsername$() | async }}
+        </span>
+      </ng-container>
     </div>
-  </a>
-</header>
 
+  </nav>
 
-<nav class="main-nav">
-  <ul>
-    <li><a routerLink="/busca">Busca</a></li>
-    <li><a routerLink="/carrinho">Carrinho</a></li>
-    <li><a routerLink="/pedidos">Meus Pedidos</a></li>
-    <li><a routerLink="/sobre">Sobre</a></li>
-    <li><a routerLink="/cadastroprod">Cadastre um produto</a></li>
-  </ul>
-
-<a *ngIf="!(auth.getLoggedIn$() | async)" routerLink="/login" class="cadastro">Login</a>
-
-  <!-- quando loggedIn for true mostra nome e botão sair -->
-  <ng-container *ngIf="auth.getLoggedIn$() | async">
-    <span class="cadastro">👋 Olá, {{ auth.getUsername$() | async }}</span>
-    <a (click)="auth.logout()" class="cadastro" style="cursor:pointer; margin-left:8px">Sair</a>
-  </ng-container>
-
-</nav>
-
-
-
+  <!-- ÁREA DE CONTEÚDO -->
   <main class="content-area">
     <router-outlet></router-outlet>
   </main>
 
+  <!-- RODAPÉ -->
   <footer class="store-footer">
     <p>&copy; 2025 LojaQuadros - Todos os direitos reservados.</p>
     <p>Um projeto de teste para a disciplina de desenvolvimento web.</p>
